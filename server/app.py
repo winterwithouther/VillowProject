@@ -123,6 +123,64 @@ class UsersById(Resource):
 
 api.add_resource(UsersById, "/users/<int:id>")
 
+class Posts(Resource):
+    def get(self):
+        posts = [post.to_dict() for post in Post.query.all()]
+        return make_response(posts, 200)
+
+    def post(self):
+        try:
+            new_post = Post(
+                price = request.json["price"],
+                house_id = request.json["house_id"],
+                user_id = request.json["user_id"]
+            )
+
+            db.session.add(new_post)
+            db.session.commit()
+
+            return make_response(new_post.to_dict(), 200)
+        except:
+            return make_response({"error" : "Post error post"}, 404)
+    
+api.add_resource(Posts, "/posts")
+
+class PostsById(Resource):
+    def get(self, id):
+        try:
+            post = Post.query.filter_by(id = id).first()
+
+            return make_response(post.to_dict(), 200)
+        except:
+            return make_response({"error" : "Post id get error"}, 404)
+        
+    def patch(self, id):
+        try:
+            post = Post.query.filter_by(id = id).first()
+
+            request_json = request.get_json()
+
+            for key in request_json:
+                setattr(post, key , request_json[key])
+
+            db.session.add(post)
+            db.session.commit()
+
+            return make_response(post.to_dict(), 200)
+        except:
+            return make_response({"error" : "post id patch error"})
+
+    def delete(self, id):
+        try:
+            post = Post.query.filter_by(id = id).first()
+            db.session.delete(post)
+            db.session.commit()
+            return make_response({}, 200)
+        except:
+            return make_response({"error" : "patch id delete error"}, 404)
+    
+api.add_resource(PostsById, "/posts/<int:id>")
+
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
 
