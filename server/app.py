@@ -11,7 +11,7 @@ from flask_restful import Resource
 # Local imports
 from config import app, db, api
 # Add your model imports
-from models import House
+from models import House, User, Post
 
 # Views go here!
 
@@ -79,6 +79,49 @@ class HousesById(Resource):
             return make_response({"erorr" : "House patch error"}, 404)
 
 api.add_resource(HousesById, "/houses/<int:id>")
+
+class Users(Resource):
+    def get(self):
+        users = [user.to_dict() for user in User.query.all()]
+
+        return make_response(users, 200)
+    
+    def post(self):
+        try:
+            new_user = User(name = request.json["name"])
+
+            db.session.add(new_user)
+            db.session.commit()
+
+            return make_response(new_user.to_dict(), 200)
+        except:
+            return make_response({"error" : "Failed to make a new user"}, 404)
+
+api.add_resource(Users, "/users")
+
+class UsersById(Resource):
+    def get(self, id):
+        try:
+            user = User.query.filter_by(id = id).first()
+
+            return make_response(user.to_dict(), 200)
+        except:
+            return make_response({"error" : "User get erorr"}, 404)
+
+    def patch(self, id):
+        user = User.query.filter_by(id = id).first()
+
+        request_json = request.get_json()
+
+        for key in request_json:
+            setattr(user, key, request_json[key])
+
+        db.session.add(user)
+        db.session.commit()
+
+        return make_response(user.to_dict(), 200)
+
+api.add_resource(UsersById, "/users/<int:id>")
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
