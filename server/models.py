@@ -26,6 +26,13 @@ class User(db.Model, SerializerMixin):
 
     serialize_rules = ("-posts.user", )
 
+    @validates("name")
+    def validate_name(self, key, name):
+        if name and len(name) > 1:
+            return name
+        raise ValueError("Name must but greater than 1 character.")
+
+
 class Post(db.Model, SerializerMixin):
     __tablename__ = 'posts'
 
@@ -35,3 +42,21 @@ class Post(db.Model, SerializerMixin):
     user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
 
     serialize_rules = ("-house.posts", "-user.posts",)
+
+    @validates("price"):
+    def validate_price(self, key, price):
+        if 0 < price < 100000000:
+            return price
+        raise ValueError("Price must be greater than 0 and less than 100 million.")
+
+    @validates("house_id"):
+    def validate_house(self, key, house_id):
+        if house_id:
+            return house_id
+        raise ValueError("Must have a House id.")
+
+    @validates("user_id"):
+    def validate_user(self, key, user_id):
+        if user_id:
+            return user_id
+        raise ValueError("Must have a User id.")
