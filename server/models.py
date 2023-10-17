@@ -6,6 +6,18 @@ from sqlalchemy_serializer import SerializerMixin
 
 from config import db
 
+# convention = {
+#     "ix": "ix_%(column_0_label)s",
+#     "uq": "uq_%(table_name)s_%(column_0_name)s",
+#     "ck": "ck_%(table_name)s_%(constraint_name)s",
+#     "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
+#     "pk": "pk_%(table_name)s"
+# }
+
+# metadata = MetaData(naming_convention=convention)
+
+# db = SQLAlchemy(metadata=metadata)
+
 class House(db.Model, SerializerMixin):
     __tablename__ = 'houses'
     
@@ -78,19 +90,19 @@ class Post(db.Model, SerializerMixin):
 
     serialize_rules = ("-house.posts", "-user.posts",)
 
-    @validates("price"):
+    @validates("price")
     def validate_price(self, key, price):
         if 0 < price < 100000000:
             return price
         raise ValueError("Price must be greater than 0 and less than 100 million.")
 
-    @validates("house_id"):
+    @validates("house_id")
     def validate_house(self, key, house_id):
         if house_id:
             return house_id
         raise ValueError("Must have a House id.")
 
-    @validates("user_id"):
+    @validates("user_id")
     def validate_user(self, key, user_id):
         if user_id:
             return user_id
