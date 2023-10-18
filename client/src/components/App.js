@@ -9,7 +9,6 @@ import Profile from "./Profile"
 import Signup from "./Signup"
 import PostForm from "./PostForm";
 
-
 function App() {
   return (
     <div className="app">
