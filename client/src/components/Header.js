@@ -1,6 +1,14 @@
+import React from "react";
+
 function Header() {
     return (
-        <div className="Header">Hello World</div>
+        <header>
+            <h1>
+                Villow
+                <span className="logo" role="img">
+                </span>
+            </h1>
+        </header>
     );
 }
 

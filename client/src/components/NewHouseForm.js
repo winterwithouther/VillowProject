@@ -7,7 +7,7 @@ function NewHouse(){
         num_of_beds:"",
         num_of_baths:"",
         square_feet:"",
-        house_im:""
+        house_img:""
     });
 
     const [house, setHouse] = useState([]);
