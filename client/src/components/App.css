@@ -1,0 +1,9 @@
+* {
+    margin: 100;
+    padding: 100;
+    box-sizing: border-box;
+}
+
+.postcard{
+    text-align: center;
+}
