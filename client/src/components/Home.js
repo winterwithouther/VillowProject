@@ -1,8 +1,9 @@
 
 
 function Home() {
+    console.log("Bruh")
     return <>
-        Home
+        bruh
     </>
 }
 
