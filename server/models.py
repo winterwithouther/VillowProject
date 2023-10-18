@@ -27,7 +27,7 @@ class House(db.Model, SerializerMixin):
     num_of_beds = db.Column(db.String)
     num_of_baths = db.Column(db.String)
     square_feet = db.Column(db.Integer)
-    # house_img = db.Column(db.String)
+    house_img = db.Column(db.String)
 
     posts = db.relationship("Post", backref="house", cascade="all, delete-orphan")
 
@@ -63,11 +63,12 @@ class House(db.Model, SerializerMixin):
             raise ValueError("Must contain a image of the house!")
         return house_img
     
-
 class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, unique=True)
+    email = db.Column(db.String)
+    phone = db.Column(db.String)
 
     posts = db.relationship("Post", backref="user", cascade="all, delete-orphan")
 
