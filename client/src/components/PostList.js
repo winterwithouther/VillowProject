@@ -13,8 +13,8 @@ function PostList({posts, morePosts, lessPosts}) {
             num_of_baths={post.house.num_of_baths}
             num_of_beds={post.house.num_of_beds}
             square_feet={post.house.square_feet}
+            house_img={post.house.house_img}
             user={post.user.name}
-            house_img={post.user.house_img}
             />
     })
 
