@@ -3,6 +3,7 @@ import MoreButton from "./MoreButton";
 import LessButton from "./LessButton";
 import NewHouseButton from "./NewHouseButton";
 import PostCard from "./PostCard";
+import Header from "./Header";
 
 function PostList({posts, morePosts, lessPosts, newHouse}) {
     const displayPosts = posts.map(post => {

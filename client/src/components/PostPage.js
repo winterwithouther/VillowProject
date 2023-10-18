@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import Header from "./Header";
 import PostList from "./PostList";
 import SearchBar from "./SearchBar";
 
@@ -16,33 +17,31 @@ function PostPage() {
     console.log(posts)
 
     // Display 4 more or less houses HousePage
-    const fourPosts = posts.slice(index, index + 4);
-    function morePosts() {
-        if (index < posts.length - 4) {
-            setIndex(index + 4)
-        }     
-    }
-    function lessPosts() {
-        if (index > 0) {
-            setIndex(index - 4)
-        }
-    }
+    // const fourPosts = posts.slice(index, index + 4);
+    // function morePosts() {
+    //     if (index < posts.length - 4) {
+    //         setIndex(index + 4)
+    //     }     
+    // }
+    // function lessPosts() {
+    //     if (index > 0) {
+    //         setIndex(index - 4)
+    //     }
+    
 
     // Search functionality
     function searchBar(event) {
         setSearch(event.target.value)
     }
-    // const filteredHouses = houses.filter(house => house.address.toLowerCase().includes(search))
+    const filteredHouses = posts.filter(post => post.house.address.toLowerCase().includes(search))
 
     return (
         <main>
+            <Header />
             <SearchBar
-                search={search} />
+                searchBar={searchBar} />
             <PostList
-                posts={fourPosts}
-                morePosts={morePosts}
-                lessPosts={lessPosts}
-                // houses={filteredHouses} 
+                posts={filteredHouses}
                 />
         </main>
     );
