@@ -7,13 +7,13 @@ import { Switch, Route, Routes } from "react-router-dom";
 // import Register from "./pages/Register";
 // import NavBar from "./NavBar";
 import Header from "./Header";
-import HousePage from "./HousePage";
+import PostPage from "./PostPage";
 
 function App() {
   return (
     <div className="app">
       <Header />
-      <HousePage />
+      <PostPage />
       <div>
         {/* <Routes>
           <Route/>
