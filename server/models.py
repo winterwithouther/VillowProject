@@ -27,7 +27,7 @@ class House(db.Model, SerializerMixin):
     num_of_beds = db.Column(db.String)
     num_of_baths = db.Column(db.String)
     square_feet = db.Column(db.Integer)
-    house_img = db.Column(db.String)
+    # house_img = db.Column(db.String)
 
     posts = db.relationship("Post", backref="house", cascade="all, delete-orphan")
 
