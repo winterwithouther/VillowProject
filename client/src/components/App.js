@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Switch, Route, Routes } from "react-router-dom";
-import { auth } from "./firebase";
-
-import Collection from "./pages/Collection";
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import NavBar from "./NavBar";
-
-
+// import { auth } from "./firebase";
+// import Collection from "./pages/Collection";
+// import Home from "./pages/Home";
+// import Login from "./pages/Login";
+// import Register from "./pages/Register";
+// import NavBar from "./NavBar";
 import Header from "./Header";
+import HousePage from "./HousePage";
 
 function App() {
   return (
@@ -17,12 +15,12 @@ function App() {
       <Header />
       <HousePage />
       <div>
-        <Routes>
+        {/* <Routes>
           <Route/>
           <Route/>
           <Route/>
           <Route/>
-          </Routes>
+          </Routes> */}
       </div>
     </div>
   );

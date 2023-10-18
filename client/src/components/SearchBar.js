@@ -1,19 +1,19 @@
 import React from "react";
-import {BsSearch} from 'react-icons/bs'
+// import {BsSearch} from 'react-icons/bs'
 
 
-function SearchBar({updateSearch, searchValue}) {
+function SearchBar({searchBar}) {
 
-    const handleChange = (e) => {updateSearch(e.target.value)}
     return(
         <div id="searchBar">
-            <input type="text"
-            placeholder="search"
-            id="search"
-            value={searchValue}
-            onChange={handleChange}
+            <label htmlFor="search">Homes</label>
+            <input 
+                type="text"
+                placeholder="Enter an address, neighborhood, city, or ZIP code"
+                id="search"
+                onChange={(event) => {searchBar(event)}}
             />
-            <BsSearch id="SearchButton"/>
+            {/* <BsSearch id="SearchButton"/> */}
         </div>
     )
 }
