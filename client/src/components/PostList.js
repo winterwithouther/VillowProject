@@ -1,9 +1,10 @@
 import React from "react";
 import MoreButton from "./MoreButton";
 import LessButton from "./LessButton";
+import NewHouseButton from "./NewHouseButton";
 import PostCard from "./PostCard";
 
-function PostList({posts, morePosts, lessPosts}) {
+function PostList({posts, morePosts, lessPosts, newHouse}) {
     const displayPosts = posts.map(post => {
         return <PostCard 
             key={post.id}
@@ -23,6 +24,7 @@ function PostList({posts, morePosts, lessPosts}) {
             {displayPosts}
             <LessButton lessPosts={lessPosts}/>
             <MoreButton morePosts={morePosts}/>
+            <NewHouseButton newHouse={newHouse}/>
         </div>
     );
 }

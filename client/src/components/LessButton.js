@@ -1,8 +1,8 @@
 import React from "react";
 
-function LessButton({lessHouses}) {
+function LessButton({lessPosts}) {
 
-  return <button onClick={lessHouses}>Less Homes!</button>;
+  return <button onClick={lessPosts}>Less Homes!</button>;
 }
 
 export default LessButton;

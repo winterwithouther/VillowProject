@@ -1,8 +1,8 @@
 import React from "react";
 
-function MoreButton({moreHouses}) {
+function MoreButton({morePosts}) {
 
-  return <button onClick={moreHouses}>More Homes!</button>;
+  return <button onClick={morePosts}>More Homes!</button>;
 }
 
 export default MoreButton;
