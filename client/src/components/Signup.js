@@ -2,6 +2,7 @@ import Header from "./Header"
 
 function Signup() {
     return <>
+        <Header />
         <div>
             <form>
                 <label>Username</label>

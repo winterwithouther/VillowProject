@@ -13,6 +13,7 @@ import Favorites from './Favorites';
 
 function App() {
   const [posts, setPosts] = useState([])
+  const [favorites, setFavorites] = useState([])
 
   useEffect(() => {
     fetch("/posts")
@@ -23,10 +24,15 @@ function App() {
   function onAddPost(newPost) {
     setPosts([...posts, newPost])
   }
-  function onClickHeartAddToCollection(favHouse)
-  {
-    setPosts([...posts, favHouse])
+
+  function handleAddToFavorites(favHouse) {
+    setFavorites([...favorites, favHouse])
   }
+
+  function handleDeleteFromFavorites(favHouse) {
+    // setFavorites([...favorites, favHouse])
+  }
+
   return (
     <div className="app">
         <Router>
@@ -43,6 +49,7 @@ function App() {
             </Route>
             <Route exact path="/posts/new">
               <PostForm 
+                posts={posts}
                 onAddPost={onAddPost}
               />
             </Route>
@@ -51,8 +58,9 @@ function App() {
             <Route exact path="/signup" component={Signup}/>
             <Route exact path="/favorites">
             <Favorites
-              posts={posts}
-              onClickHeartAddToCollection={onClickHeartAddToCollection}
+              favorites={favorites}
+              handleAddToFavorites={handleAddToFavorites}
+              handleDeleteFromFavorites={handleDeleteFromFavorites}
             />
             </Route>
           </Switch>
