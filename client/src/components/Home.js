@@ -3,19 +3,11 @@ import PostList from "./PostList";
 import Header from "./Header";
 import SearchBar from "./SearchBar";
 
-function Home() {
-    const [posts, setPosts] = useState([])
+function Home({posts}) {
     const [search, setSearch] = useState("")
     const [index, setIndex] = useState(0)
 
-    useEffect(() => {
-        fetch("http://127.0.0.1:5555/posts")
-        .then(res => res.json())
-        .then(data => setPosts(data))
-    }, [])
-
-
-    // Display 4 more or less houses HousePage
+    // Display 4 more or less houses in home page
     const fourPosts = posts.slice(index, index + 4);
     function morePosts() {
         if (index < posts.length - 4) {
