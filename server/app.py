@@ -10,7 +10,7 @@ from flask_restful import Resource
 # Local imports
 from config import app, db, api
 # Add your model imports
-from models import House, User, Post
+from models import House, User, Post, Favorite
 
 # Set up:
 # generate a secrete key `python -c 'import os; print(os.urandom(16))'`
@@ -215,6 +215,7 @@ class Logout(Resource):
         return make_response("", 204)
 
 api.add_resource(Logout, '/logout')
+
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
