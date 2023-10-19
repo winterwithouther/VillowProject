@@ -11,7 +11,7 @@ from flask_restful import Resource
 # Local imports
 from config import app, db, api
 # Add your model imports
-from models import House, User, Post
+from models import House, User, Post, Favorite
 
 # Views go here!
 
@@ -181,6 +181,23 @@ class PostsById(Resource):
             return make_response({"error" : "patch id delete error"}, 404)
     
 api.add_resource(PostsById, "/posts/<int:id>")
+
+class Favorites(Resource):
+    def get(self, user_id):
+        # Retrieve favorite houses for the specified user
+        favorites = Favorite.query.filter_by(user_id=user_id).all()
+        return make_response([fav.to_dict() for fav in favorites], 200)
+
+    def post(self, user_id, house_id):
+        # Add a house to a user's favorites
+        favorite = Favorite(user_id=user_id, house_id=house_id)
+        db.session.add(favorite)
+        db.session.commit()
+        return make_response(favorite.to_dict(), 201)
+
+api.add_resource(Favorites, "/users/<int:user_id>/favorites", "/users/<int:user_id>/favorites/<int:house_id>")
+
+
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
