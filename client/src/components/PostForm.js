@@ -8,6 +8,7 @@ function PostForm({onAddPost}) {
     const [num_of_baths, setNumOfBaths] = useState('')
     const [square_feet, setSquareFeet] = useState('')
     const [house_img, setHouseImg] = useState('')
+    const [price,setPrice]=useState('')
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -22,14 +23,14 @@ function PostForm({onAddPost}) {
         }
     
         fetch("/posts", {
-          method: "POST",
-          headers: {
+            method: "POST",
+            headers: {
             "Content-Type": "application/json",
-          },
-          body: JSON.stringify(postData),
+        },
+            body: JSON.stringify(postData),
         })
-          .then((r) => r.json())
-          .then((newPost) => {
+            .then((r) => r.json())
+            .then((newPost) => {
             onAddPost(newPost);
             setAddress("");
             setDescription("");
@@ -37,12 +38,13 @@ function PostForm({onAddPost}) {
             setNumOfBaths("");
             setSquareFeet("");
             setHouseImg("");
-          });
-      }
+            setPrice("");
+        });
+    }
 
     return (<>
         <Header/>
-            Post Form
+            <div class ="new-house-text">New house here!</div>
         <form className="new-post" onSubmit={handleSubmit}>
         <input
             placeholder="address..."
@@ -85,6 +87,13 @@ function PostForm({onAddPost}) {
             name="house_image"
             value={house_img}
             onChange={(e) => setHouseImg(e.target.value)}
+        />
+        <input
+            placeholder="price..."
+            type="text"
+            name="price"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
         />
         <button type="submit">Add Post</button>
         </form>

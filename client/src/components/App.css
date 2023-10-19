@@ -14,6 +14,7 @@
     
 }
 
+
 .all-button,
 .add-button,
 .fav-button,
@@ -23,6 +24,7 @@
 .main-button:visited{
     color:black;
     padding-left: 15px;
+    text-decoration: none;
 }
 
 
@@ -123,4 +125,8 @@
 }
 .deleteBtn{
     width:150px;
+}
+.new-house-text{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: large;
 }
