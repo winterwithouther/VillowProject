@@ -2,16 +2,20 @@
 
 # Standard library imports
 
-from flask import Flask, make_response, jsonify, request
+from flask import Flask, request, make_response, abort, session, jsonify
 
 # Remote library imports
-from flask import request
 from flask_restful import Resource
 
 # Local imports
 from config import app, db, api
 # Add your model imports
 from models import House, User, Post, Favorite
+
+# Set up:
+# generate a secrete key `python -c 'import os; print(os.urandom(16))'`
+
+app.secret_key = b'\x82\xd9\xab\x9a0`\xa3\x92fn@\x81\x1d\xbeK\xcd'
 
 # Views go here!
 
@@ -93,6 +97,8 @@ class Users(Resource):
 
             db.session.add(new_user)
             db.session.commit()
+
+            session['user_id'] = new_user.id #save the new users id to the session hash's user_id
 
             return make_response(new_user.to_dict(), 200)
         except:
@@ -182,21 +188,33 @@ class PostsById(Resource):
     
 api.add_resource(PostsById, "/posts/<int:id>")
 
-class Favorites(Resource):
-    def get(self, user_id):
-        # Retrieve favorite houses for the specified user
-        favorites = Favorite.query.filter_by(user_id=user_id).all()
-        return make_response([fav.to_dict() for fav in favorites], 200)
+class Login(Resource):
+    def post(self):
+        user = User.query.filter_by(name=request.get_json()['name']).first()
 
-    def post(self, user_id, house_id):
-        # Add a house to a user's favorites
-        favorite = Favorite(user_id=user_id, house_id=house_id)
-        db.session.add(favorite)
-        db.session.commit()
-        return make_response(favorite.to_dict(), 201)
+        session['user_id'] = user.id
+        
+        return make_response(user.to_dict(), 200)
+    
+api.add_resource(Login, '/login')
 
-api.add_resource(Favorites, "/users/<int:user_id>/favorites", "/users/<int:user_id>/favorites/<int:house_id>")
+class AuthorizedSession(Resource):
+    def get(self):
+        user = User.query.filter_by(id=session.get('user_id')).first()
 
+        if user:
+            return make_response(user.to_dict(), 200)
+        else:
+            abort(401, "Unauthorized")
+
+api.add_resource(AuthorizedSession, '/authorized')
+
+class Logout(Resource):
+    def delete(self):
+        session['user_id'] = None
+        return make_response("", 204)
+
+api.add_resource(Logout, '/logout')
 
 
 if __name__ == '__main__':
