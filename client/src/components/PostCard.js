@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import DeleteButton from "./DeleteButton";
 import {BsSuitHeart, BsSuitHeartFill} from "react-icons/bs";
 
-function PostCard({address, price, house_img, num_of_baths, num_of_beds, description, square_feet, user, onClickHeartAddToCollection, deleteHouses}) {
+function PostCard({id, address, price, house_img, num_of_baths, num_of_beds, description, square_feet, user, onClickHeartAddToCollection, deleteHouses}) {
     const [favorite, setIsFavorite] = useState(true);
 
     function handleClick() {
@@ -27,6 +27,7 @@ function PostCard({address, price, house_img, num_of_baths, num_of_beds, descrip
         .then(data => onClickHeartAddToCollection(data))
 }
     const favoriteHouse = favorite ? <BsSuitHeart onClick={handleClick} /> : <BsSuitHeartFill onClick={handleClick} />;
+
     return (<>
         <div class = "property-card">
             <div class="property-image">
@@ -40,7 +41,7 @@ function PostCard({address, price, house_img, num_of_baths, num_of_beds, descrip
             <h5>Lister: {user}</h5>
             <span className="favorite">{favoriteHouse}</span>
             <div class="deleteBtn">
-            <DeleteButton deleteHouses={deleteHouses}/>
+            <DeleteButton deleteHouses={deleteHouses} id={id}/>
             </div>
             </div>
         </div>

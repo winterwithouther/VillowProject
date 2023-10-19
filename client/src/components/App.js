@@ -13,12 +13,19 @@ import Favorites from './Favorites';
 
 function App() {
   const [posts, setPosts] = useState([])
+  const [houses, setHouses] = useState([])
   const [favorites, setFavorites] = useState([])
 
   useEffect(() => {
     fetch("/posts")
     .then(res => res.json())
     .then(data => setPosts(data))
+  }, [])
+
+  useEffect(() => {
+    fetch("/houses")
+    .then(res => res.json())
+    .then(data => setHouses(data))
   }, [])
 
   function onAddPost(newPost) {
@@ -51,6 +58,7 @@ function App() {
               <PostForm 
                 posts={posts}
                 onAddPost={onAddPost}
+                houses={houses}
               />
             </Route>
             <Route exact path="/profile" component={Profile}/>

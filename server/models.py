@@ -34,35 +34,35 @@ class House(db.Model, SerializerMixin):
 
     serialize_rules = ("-posts.house", )
 
-    @validates('address')
-    def validates_address(self,key,address):
-        if not address or len(address)<1:
-            raise ValueError("Must contain an address!")
-        return address
+    # @validates('address')
+    # def validates_address(self,key,address):
+    #     if not address or len(address)<1:
+    #         raise ValueError("Must contain an address!")
+    #     return address
     
-    @validates('description')
-    def validates_description(self,key,description):
-        if not description or len(description)<1:
-            raise ValueError("Must contain a description!")
-        return description
+    # @validates('description')
+    # def validates_description(self,key,description):
+    #     if not description or len(description)<1:
+    #         raise ValueError("Must contain a description!")
+    #     return description
     
-    @validates('num_of_beds','num_of_baths')
-    def validates_num_of_x(self,ket,num):
-        if num < 1:
-            raise ValueError("Must contain at least 1 bed or bath!")
-        return num
+    # @validates('num_of_beds','num_of_baths')
+    # def validates_num_of_x(self,ket,num):
+    #     if num < 1:
+    #         raise ValueError("Must contain at least 1 bed or bath!")
+    #     return num
     
-    @validates('square_feet')
-    def validates_square_feet(self,key,square_feet):
-        if not square_feet or square_feet<100:
-            raise ValueError("Must be larger then 100 square feet")
-        return square_feet
+    # @validates('square_feet')
+    # def validates_square_feet(self,key,square_feet):
+    #     if not square_feet or square_feet<100:
+    #         raise ValueError("Must be larger then 100 square feet")
+    #     return square_feet
     
-    @validates('house_img')
-    def validates_house_img(self,key,house_img):
-        if not house_img or len(house_img)<1:
-            raise ValueError("Must contain a image of the house!")
-        return house_img
+    # @validates('house_img')
+    # def validates_house_img(self,key,house_img):
+    #     if not house_img or len(house_img)<1:
+    #         raise ValueError("Must contain a image of the house!")
+    #     return house_img
     
 class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
@@ -93,23 +93,23 @@ class Post(db.Model, SerializerMixin):
 
     serialize_rules = ("-house.posts", "-user.posts",)
 
-    @validates("price")
-    def validate_price(self, key, price):
-        if 0 < price < 100000000:
-            return price
-        raise ValueError("Price must be greater than 0 and less than 100 million.")
+    # @validates("price")
+    # def validate_price(self, key, price):
+    #     if 0 < price < 100000000:
+    #         return price
+    #     raise ValueError("Price must be greater than 0 and less than 100 million.")
 
-    @validates("house_id")
-    def validate_house(self, key, house_id):
-        if house_id:
-            return house_id
-        raise ValueError("Must have a House id.")
+    # @validates("house_id")
+    # def validate_house(self, key, house_id):
+    #     if house_id:
+    #         return house_id
+    #     raise ValueError("Must have a House id.")
 
-    @validates("user_id")
-    def validate_user(self, key, user_id):
-        if user_id:
-            return user_id
-        raise ValueError("Must have a User id.")
+    # @validates("user_id")
+    # def validate_user(self, key, user_id):
+    #     if user_id:
+    #         return user_id
+    #     raise ValueError("Must have a User id.")
 
 class Favorite(db.Model):
     id = db.Column(db.Integer, primary_key=True)

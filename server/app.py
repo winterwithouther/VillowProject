@@ -37,7 +37,6 @@ class Houses(Resource):
                 address = request.json["address"],
                 description = request.json["description"],
                 num_of_beds = request.json["num_of_beds"],
-                favorited = request.json["favorited"],
                 num_of_baths = request.json["num_of_baths"],
                 square_feet = request.json["square_feet"],
                 house_img = request.json["house_img"]
@@ -48,7 +47,7 @@ class Houses(Resource):
 
             return make_response(new_house.to_dict(), 201)
         except:
-            return make_response({"erorr" : ["validation errors"]}, 404)
+            return make_response({"error" : ["validation errors"]}, 404)
     
 api.add_resource(Houses, "/houses")
 

@@ -5,10 +5,11 @@ import NewHouseButton from "./NewHouseButton";
 import PostCard from "./PostCard";
 import Header from "./Header";
 
-function PostList({posts, morePosts, lessPosts, newHouse}) {
+function PostList({posts, morePosts, lessPosts, newHouse,}) {
     const displayPosts = posts.map(post => {
         return <PostCard 
             key={post.id}
+            id={post.id}
             price={post.price}
             address={post.house.address}
             description={post.house.description}
