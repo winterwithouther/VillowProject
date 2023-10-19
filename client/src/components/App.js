@@ -23,7 +23,10 @@ function App() {
   function onAddPost(newPost) {
     setPosts([...posts, newPost])
   }
-
+  function onClickHeartAddToCollection(favHouse)
+  {
+    setPosts([...posts, favHouse])
+  }
   return (
     <div className="app">
         <Router>
@@ -46,7 +49,11 @@ function App() {
             <Route exact path="/profile" component={Profile}/>
             <Route exact path="/login" component={Login}/>
             <Route exact path="/signup" component={Signup}/>
-            <Route exact path="/favorites" component={Favorites}/>
+            <Route exact path="/favorites" component={
+              <Favorites>
+                onClickHeartAddToCollection={onClickHeartAddToCollection}
+              </Favorites>
+              }/>
           </Switch>
         </Router>
     </div>
