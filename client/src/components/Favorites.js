@@ -1,13 +1,19 @@
-import Header from "./Header"
-import PostCard from "./PostCard"
+import React from "react";
+import Header from "./Header";
+import PostCard from "./PostCard";
 
-function Favorites(list, onClickHeartAddToCollection) {
-    const postCard =list.map((post) => <PostCard key={post.id} {...post} onClickHeartAddToCollection={onClickHeartAddToCollection}/>)
-    return <>
-        <Header/>
-        Favorites
-        {postCard}
+function Favorites({ posts, onClickHeartAddToCollection }) {
+  const postCards = posts.map((post) => (
+    <PostCard key={post.id} {...post} onClickHeartAddToCollection={onClickHeartAddToCollection} />
+  ));
+
+return (
+    <>
+    <Header />
+    <div>Favorites</div>
+    {postCards}
     </>
+);
 }
 
-export default Favorites
+export default Favorites;

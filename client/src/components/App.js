@@ -49,11 +49,12 @@ function App() {
             <Route exact path="/profile" component={Profile}/>
             <Route exact path="/login" component={Login}/>
             <Route exact path="/signup" component={Signup}/>
-            <Route exact path="/favorites" component={
-              <Favorites>
-                onClickHeartAddToCollection={onClickHeartAddToCollection}
-              </Favorites>
-              }/>
+            <Route exact path="/favorites">
+            <Favorites
+              posts={posts}
+              onClickHeartAddToCollection={onClickHeartAddToCollection}
+            />
+            </Route>
           </Switch>
         </Router>
     </div>
