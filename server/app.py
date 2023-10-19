@@ -2,7 +2,7 @@
 
 # Standard library imports
 
-from flask import Flask, make_response, jsonify, request
+from flask import Flask, request, make_response, abort, session, jsonify
 
 # Remote library imports
 from flask import request
@@ -14,6 +14,9 @@ from config import app, db, api
 from models import House, User, Post
 
 # Views go here!
+
+app.secret_key = b'mH\xff[\t\x19\xb0\xc2\xd4\x08\x05+\x04\t&\x03'
+
 
 @app.route('/')
 def index():
@@ -182,10 +185,33 @@ class PostsById(Resource):
     
 api.add_resource(PostsById, "/posts/<int:id>")
 
+class Login(Resource):
+    def post(self):
+        user = User.query.filter_by(name=request.get_json()['name']).first()
 
+        session['user_id'] = user.id
 
+        return make_response(user.to_dict(), 200)
+    
+api.add_resource(Login, '/login')
 
+class AuthorizedSession(Resource):
+    def get(self):
+        user = User.query.filter_by(id=session.get('user_id')).first()
+    
+        if user:
+            return make_response(user.to_dict(), 200)
+        else:
+            abort(401, "Unauthorized")
 
+api.add_resource(AuthorizedSession, '/authorized')
+
+class Logout(Resource):
+    def delete(self):
+        session['user_id'] = None
+        return make_response("", 204)
+
+api.add_resource(Logout, '/logout')
 
 
 if __name__ == '__main__':
