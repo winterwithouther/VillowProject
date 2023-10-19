@@ -1,49 +1,36 @@
 import React, {useState} from "react";
+import DeleteButton from "./DeleteButton";
 import {BsSuitHeart, BsSuitHeartFill} from "react-icons/bs";
 
-function PostCard({ address, price, house_img, num_of_baths, num_of_beds, description, square_feet, user, favorited, handleAddToFavorites, handleDeleteFromFavorites}) {
-    const [favorite, setFavorites] = useState(true)
+function PostCard({address, price, house_img, num_of_baths, num_of_beds, description, square_feet, user, onClickHeartAddToCollection}) {
+    const [favorite, setIsFavorite] = useState(true);
 
-    // function handleClick() {
-    //     fetch("/posts/" + id, {
-    //         method: "PATCH",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify({ favorited: !favorited }),
-    //     })
-    //     .then((response) => response.json())
-    //     .then(data => {
-    //         handleAddToFavorites(data)
-
-    //         console.log(data)
-
-    //         if (data.favorited) {
-    //             fetch("/favorites", {
-    //             method: "POST",
-    //             headers: { "content-type": "application/json" },
-    //             body: JSON.stringify(data)
-    //             })
-    //             .then(response => response.json())
-    //             .then(postData => {
-    //                 console.log(postData)
-    //             })
-    //         } else {
-    //             fetch("/favorites/" + id, {
-    //             method: "DELETE"
-    //             })
-    //             .then(response => response.json())
-    //             .then(() => {
-    //                 handleDeleteFromFavorites(data)
-    //             })
-    //         }
-    //     })
-    // }
-
+    function handleClick() {
+    setIsFavorite(!favorite)
+    fetch("/api/favorites", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            address: address,
+            price: price,
+            house_img: house_img,
+            num_of_baths: num_of_baths,
+            num_of_beds: num_of_beds,
+            description: description,
+            square_feet: square_feet,
+            user: user,
+        }),
+    })
+        .then((r) => r.json())
+        .then(data => onClickHeartAddToCollection(data))
+}
+    const favoriteHouse = favorite ? <BsSuitHeart onClick={handleClick} /> : <BsSuitHeartFill onClick={handleClick} />;
     return (<>
-        <div>
+        <div class = "property-card">
+            <div class="property-image">
             <img src={house_img} alt={address}></img>
-            {/* <button className="favButton" onClick={handleClick}>{favorite ? <BsSuitHeartFill/> : <BsSuitHeart/>}</button> */}
             <h4>{address}</h4>
             <p>Price: {price}</p>
             <p>Beds: {num_of_beds}</p>
@@ -51,6 +38,11 @@ function PostCard({ address, price, house_img, num_of_baths, num_of_beds, descri
             <p>Sqft: {square_feet}</p>
             <p>Description: {description}</p>
             <h5>Lister: {user}</h5>
+            <span className="favorite">{favoriteHouse}</span>
+            <div class="deleteBtn">
+            <DeleteButton deleteHouses={deleteHouses}/>
+            </div>
+            </div>
         </div>
     </>)
 }

@@ -4,6 +4,7 @@ from sqlalchemy.orm import validates
 from sqlalchemy.ext.associationproxy import association_proxy
 from sqlalchemy_serializer import SerializerMixin
 
+
 from config import db
 
 # convention = {
@@ -109,3 +110,16 @@ class Post(db.Model, SerializerMixin):
         if user_id:
             return user_id
         raise ValueError("Must have a User id.")
+
+class Favorite(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    house_id = db.Column(db.Integer, db.ForeignKey('house.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+    def to_dict(self):
+        # Return a dictionary representation of the favorite house
+        return {
+            "id": self.id,
+            "house": self.house.to_dict(),  # Include house details
+            "user_id": self.user_id
+        }
