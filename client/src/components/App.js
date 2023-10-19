@@ -20,6 +20,10 @@ function App() {
     .then(data => setPosts(data))
   }, [])
 
+  function onAddPost(newPost) {
+    setPosts([...posts, newPost])
+  }
+
   return (
     <div className="app">
         <Router>
@@ -34,7 +38,11 @@ function App() {
                 posts={posts}
               />  
             </Route>
-            <Route exact path="/posts/new" component={PostForm}/>
+            <Route exact path="/posts/new">
+              <PostForm 
+                onAddPost={onAddPost}
+              />
+            </Route>
             <Route exact path="/profile" component={Profile}/>
             <Route exact path="/login" component={Login}/>
             <Route exact path="/signup" component={Signup}/>
