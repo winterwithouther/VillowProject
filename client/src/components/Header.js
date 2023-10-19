@@ -20,6 +20,9 @@ function Header() {
                     <Link className="button" to="/posts/new">
                         Add Post
                     </Link>
+                    <Link className="button" to="/favorites">
+                        Favorites
+                    </Link>
                     <Link className="button" to="/profile">
                         Profile
                     </Link>

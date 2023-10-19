@@ -1,10 +1,10 @@
 import Header from "./Header"
 
-function Signup() {
+function Favorites() {
     return <>
         <Header/>
-        Sign up
+        Favorites
     </>
 }
 
-export default Signup
+export default Favorites

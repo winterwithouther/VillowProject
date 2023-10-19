@@ -9,18 +9,36 @@ import Login from "./Login"
 import Profile from "./Profile"
 import Signup from "./Signup"
 import PostForm from "./PostForm";
+import Favorites from './Favorites';
 
 function App() {
+  const [posts, setPosts] = useState([])
+
+  useEffect(() => {
+    fetch("/posts")
+    .then(res => res.json())
+    .then(data => setPosts(data))
+  }, [])
+
   return (
     <div className="app">
         <Router>
           <Switch>
-            <Route exact path="/" component={Home}/>
-            <Route exact path="/posts" component={PostPage}/>
+            <Route exact path="/">
+              <Home 
+                posts={posts}
+              />
+            </Route> 
+            <Route exact path="/posts">
+              <PostPage
+                posts={posts}
+              />  
+            </Route>
             <Route exact path="/posts/new" component={PostForm}/>
             <Route exact path="/profile" component={Profile}/>
             <Route exact path="/login" component={Login}/>
             <Route exact path="/signup" component={Signup}/>
+            <Route exact path="/favorites" component={Favorites}/>
           </Switch>
         </Router>
     </div>
