@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 
 function Header() {
     return (
+        <div className="heading">
         <header>
             <h1>
                 Villow
@@ -35,6 +36,7 @@ function Header() {
                 </div>
             </nav>
         </header>
+        </div>
     );
 }
 
