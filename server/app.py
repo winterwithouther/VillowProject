@@ -19,6 +19,9 @@ app.secret_key = b'\x82\xd9\xab\x9a0`\xa3\x92fn@\x81\x1d\xbeK\xcd'
 
 # Views go here!
 
+app.secret_key = b'mH\xff[\t\x19\xb0\xc2\xd4\x08\x05+\x04\t&\x03'
+
+
 @app.route('/')
 def index():
     return '<h1>Project Server</h1>'
@@ -194,7 +197,7 @@ class Login(Resource):
         user = User.query.filter_by(name=request.get_json()['name']).first()
 
         session['user_id'] = user.id
-        
+
         return make_response(user.to_dict(), 200)
     
 api.add_resource(Login, '/login')
@@ -202,7 +205,6 @@ api.add_resource(Login, '/login')
 class AuthorizedSession(Resource):
     def get(self):
         user = User.query.filter_by(id=session.get('user_id')).first()
-
         if user:
             return make_response(user.to_dict(), 200)
         else:
