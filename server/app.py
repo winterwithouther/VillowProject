@@ -2,20 +2,16 @@
 
 # Standard library imports
 
-from flask import Flask, request, make_response, abort, session, jsonify
+from flask import Flask, make_response, jsonify, request
 
 # Remote library imports
+from flask import request
 from flask_restful import Resource
 
 # Local imports
 from config import app, db, api
 # Add your model imports
-from models import House, User, Post, Favorite
-
-# Set up:
-# generate a secrete key `python -c 'import os; print(os.urandom(16))'`
-
-app.secret_key = b'\x82\xd9\xab\x9a0`\xa3\x92fn@\x81\x1d\xbeK\xcd'
+from models import House, User, Post
 
 # Views go here!
 
@@ -44,8 +40,8 @@ class Houses(Resource):
 
             return make_response(new_house.to_dict(), 201)
         except:
-            return make_response({"erorr" : ["validation errors"]}, 404)
-    
+            return make_response({"error" : ["validation errors"]}, 404)
+        
 api.add_resource(Houses, "/houses")
 
 class HousesById(Resource):
@@ -97,8 +93,6 @@ class Users(Resource):
 
             db.session.add(new_user)
             db.session.commit()
-
-            session['user_id'] = new_user.id #save the new users id to the session hash's user_id
 
             return make_response(new_user.to_dict(), 200)
         except:
@@ -188,33 +182,10 @@ class PostsById(Resource):
     
 api.add_resource(PostsById, "/posts/<int:id>")
 
-class Login(Resource):
-    def post(self):
-        user = User.query.filter_by(name=request.get_json()['name']).first()
 
-        session['user_id'] = user.id
-        
-        return make_response(user.to_dict(), 200)
-    
-api.add_resource(Login, '/login')
 
-class AuthorizedSession(Resource):
-    def get(self):
-        user = User.query.filter_by(id=session.get('user_id')).first()
 
-        if user:
-            return make_response(user.to_dict(), 200)
-        else:
-            abort(401, "Unauthorized")
 
-api.add_resource(AuthorizedSession, '/authorized')
-
-class Logout(Resource):
-    def delete(self):
-        session['user_id'] = None
-        return make_response("", 204)
-
-api.add_resource(Logout, '/logout')
 
 
 if __name__ == '__main__':
