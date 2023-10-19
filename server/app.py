@@ -30,6 +30,7 @@ class Houses(Resource):
                 address = request.json["address"],
                 description = request.json["description"],
                 num_of_beds = request.json["num_of_beds"],
+                favorited = request.json["favorited"],
                 num_of_baths = request.json["num_of_baths"],
                 square_feet = request.json["square_feet"],
                 house_img = request.json["house_img"]

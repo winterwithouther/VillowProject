@@ -86,6 +86,7 @@ class Post(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     price = db.Column(db.Integer)
+    favorited = db.Column(db.Boolean)
     house_id = db.Column(db.Integer,db.ForeignKey("houses.id"))
     user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
 
