@@ -9,7 +9,7 @@ function Home() {
     const [index, setIndex] = useState(0)
 
     useEffect(() => {
-        fetch("http://127.0.0.1:5555/posts")
+        fetch("/posts")
         .then(res => res.json())
         .then(data => setPosts(data))
     }, [])
