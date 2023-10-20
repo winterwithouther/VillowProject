@@ -13,12 +13,19 @@ import Favorites from './Favorites';
 
 function App() {
   const [posts, setPosts] = useState([])
+  const [user, setUser] = useState(null)
 
   useEffect(() => {
     fetch("/posts")
     .then(res => res.json())
     .then(data => setPosts(data))
   }, [])
+
+  function updateUser(newUser) {
+    console.log(newUser)
+    setUser(newUser)
+  }
+
 
   function onAddPost(newPost) {
     setPosts([...posts, newPost])
@@ -47,7 +54,9 @@ function App() {
               />
             </Route>
             <Route exact path="/profile" component={Profile}/>
-            <Route exact path="/login" component={Login}/>
+            <Route exact path="/login">
+              <Login updateUser={updateUser}/>
+            </Route>
             <Route exact path="/signup" component={Signup}/>
             <Route exact path="/favorites">
             <Favorites

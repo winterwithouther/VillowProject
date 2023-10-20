@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import {useHistory} from "react-router-dom"
 import PostList from "./PostList";
 import Header from "./Header";
 import SearchBar from "./SearchBar";

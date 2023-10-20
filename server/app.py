@@ -17,7 +17,6 @@ from models import House, User, Post
 
 app.secret_key = b'mH\xff[\t\x19\xb0\xc2\xd4\x08\x05+\x04\t&\x03'
 
-
 @app.route('/')
 def index():
     return '<h1>Project Server</h1>'
@@ -92,7 +91,9 @@ class Users(Resource):
     
     def post(self):
         try:
-            new_user = User(name = request.json["name"])
+            new_user = User(name = request.json["name"],
+                            password = request.json["password"],
+                            email = request.json["email"])
 
             db.session.add(new_user)
             db.session.commit()
@@ -188,10 +189,13 @@ api.add_resource(PostsById, "/posts/<int:id>")
 class Login(Resource):
     def post(self):
         user = User.query.filter_by(name=request.get_json()['name']).first()
-
-        session['user_id'] = user.id
-
-        return make_response(user.to_dict(), 200)
+        password = request.get_json()["password"]
+        # import ipdb; ipdb.set_trace()
+        if user:
+            session['user_id'] = user.id
+            return make_response(user.to_dict(), 200)
+            
+        return make_response({"error" : "401 Unauthorized"}, 401)
     
 api.add_resource(Login, '/login')
 
@@ -212,6 +216,39 @@ class Logout(Resource):
         return make_response("", 204)
 
 api.add_resource(Logout, '/logout')
+
+class Signup(Resource):
+    def post(self):
+        request_json = request.get_json()
+
+        name = request_json.get("name")
+        password = request_json.get("password")
+        email = request_json.get("email")
+
+        user = User(
+            name = name,
+            password = password,
+            email = email
+        )
+
+        user.password_hash = password
+
+        try:
+            db.session.add(user)
+            db.session.commit()
+
+            session["user_id"] = user.id
+
+            return make_response(user.to_dict(), 201)
+        except:
+            return make_response({"error" : "Errors"}, 422)
+        
+
+
+
+
+
+        
 
 
 if __name__ == '__main__':
