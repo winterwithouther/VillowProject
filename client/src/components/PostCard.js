@@ -7,24 +7,18 @@ function PostCard({id, address, price, house_img, num_of_baths, num_of_beds, des
 
     function handleClick() {
     setIsFavorite(!favorite)
-    fetch("/api/favorites", {
-        method: "POST",
+    fetch(`/posts/${id}`, {
+        method: "PATCH",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            address: address,
-            price: price,
-            house_img: house_img,
-            num_of_baths: num_of_baths,
-            num_of_beds: num_of_beds,
-            description: description,
-            square_feet: square_feet,
-            user: user,
-        }),
+            favorited: !favorite
+        })
     })
         .then((r) => r.json())
-        .then(data => onClickHeartAddToCollection(data))
+        .then(data => console.log(data))
+       // .then(data => onClickHeartAddToCollection(data))
 }
     const favoriteHouse = favorite ? <BsSuitHeart onClick={handleClick} /> : <BsSuitHeartFill onClick={handleClick} />;
 

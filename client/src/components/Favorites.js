@@ -4,7 +4,8 @@ import PostCard from "./PostCard";
 
 function Favorites({ favorites, handleAddToFavorites, handleDeleteFromFavorites }) {
 
-  const displayFavorites = favorites.map(post => {
+console.log(favorites)
+const displayFavorites = favorites.map(post => {
         return <PostCard 
             key={post.id}
             id={post.id}

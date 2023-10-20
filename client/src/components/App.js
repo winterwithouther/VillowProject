@@ -2,7 +2,6 @@ import './App.css';
 import React, { useEffect, useState } from "react";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 
-import Header from "./Header";
 import PostPage from "./PostPage";
 import Home from "./Home"
 import Login from "./Login"
@@ -19,7 +18,10 @@ function App() {
   useEffect(() => {
     fetch("/posts")
     .then(res => res.json())
-    .then(data => setPosts(data))
+    .then(data => {
+      setPosts(data);
+      setFavorites(data.filter(post => post.favorited === true))
+    })
   }, [])
 
   useEffect(() => {
