@@ -23,8 +23,8 @@ function PostCard({id, address, price, house_img, num_of_baths, num_of_beds, des
     const favoriteHouse = favorite ? <BsSuitHeart onClick={handleClick} /> : <BsSuitHeartFill onClick={handleClick} />;
 
     return (<>
-        <div class = "property-card">
-            <div class="property-image">
+        <div className="property-card">
+            <div className="property-image">
             <img src={house_img} alt={address}></img>
             <h4>{address}</h4>
             <p>Price: {price}</p>
@@ -34,7 +34,7 @@ function PostCard({id, address, price, house_img, num_of_baths, num_of_beds, des
             <p>Description: {description}</p>
             <h5>Lister: {user}</h5>
             <span className="favorite">{favoriteHouse}</span>
-            <div class="deleteBtn">
+            <div className="deleteBtn">
             <DeleteButton deleteHouses={deleteHouses} id={id}/>
             </div>
             </div>
