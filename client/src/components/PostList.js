@@ -17,6 +17,7 @@ function PostList({posts, morePosts, lessPosts, newHouse}) {
             square_feet={post.house.square_feet}
             house_img={post.house.house_img}
             user={post.user.name}
+            favorited={post.favorited}
             />
     })
 

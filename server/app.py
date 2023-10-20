@@ -5,13 +5,17 @@
 from flask import Flask, request, make_response, abort, session, jsonify
 
 # Remote library imports
-from flask import request
 from flask_restful import Resource
 
 # Local imports
 from config import app, db, api
 # Add your model imports
-from models import House, User, Post
+from models import House, User, Post, Favorite
+
+# Set up:
+# generate a secrete key `python -c 'import os; print(os.urandom(16))'`
+
+app.secret_key = b'\x82\xd9\xab\x9a0`\xa3\x92fn@\x81\x1d\xbeK\xcd'
 
 # Views go here!
 
@@ -32,6 +36,7 @@ class Houses(Resource):
                 address = request.json["address"],
                 description = request.json["description"],
                 num_of_beds = request.json["num_of_beds"],
+                favorited = request.json["favorited"],
                 num_of_baths = request.json["num_of_baths"],
                 square_feet = request.json["square_feet"],
                 house_img = request.json["house_img"]
@@ -42,8 +47,8 @@ class Houses(Resource):
 
             return make_response(new_house.to_dict(), 201)
         except:
-            return make_response({"error" : ["validation errors"]}, 404)
-        
+            return make_response({"erorr" : ["validation errors"]}, 404)
+    
 api.add_resource(Houses, "/houses")
 
 class HousesById(Resource):
@@ -97,6 +102,8 @@ class Users(Resource):
 
             db.session.add(new_user)
             db.session.commit()
+
+            session['user_id'] = new_user.id #save the new users id to the session hash's user_id
 
             return make_response(new_user.to_dict(), 200)
         except:
@@ -202,7 +209,6 @@ api.add_resource(Login, '/login')
 class AuthorizedSession(Resource):
     def get(self):
         user = User.query.filter_by(id=session.get('user_id')).first()
-    
         if user:
             return make_response(user.to_dict(), 200)
         else:

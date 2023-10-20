@@ -17,6 +17,7 @@ function Signup() {
     }
 
     return <>
+        <Header />
         <div>
             <form>
                 <label>Username</label>

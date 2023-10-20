@@ -16,7 +16,8 @@ function PostPage({posts}) {
         <main>
             <Header />
             <SearchBar
-                searchBar={searchBar} />
+                searchBar={searchBar}
+                />
             <PostList
                 posts={filteredHouses}
                 />

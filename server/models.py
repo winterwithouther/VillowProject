@@ -105,6 +105,7 @@ class Post(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     price = db.Column(db.Integer)
+    favorited = db.Column(db.Boolean)
     house_id = db.Column(db.Integer,db.ForeignKey("houses.id"))
     user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
 
@@ -128,4 +129,15 @@ class Post(db.Model, SerializerMixin):
             return user_id
         raise ValueError("Must have a User id.")
 
+class Favorite(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    house_id = db.Column(db.Integer, db.ForeignKey('house.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
+    def to_dict(self):
+        # Return a dictionary representation of the favorite house
+        return {
+            "id": self.id,
+            "house": self.house.to_dict(),  # Include house details
+            "user_id": self.user_id
+        }
