@@ -1,16 +1,17 @@
 import React, {useState, useEffect} from "react";
 import Header from "./Header";
 import PostList from "./PostList";
+import HouseList from "./HouseList"
 import SearchBar from "./SearchBar";
 
-function PostPage({posts}) {
+function PostPage({houses}) {
     const [search, setSearch] = useState("")
 
     // Search houses by address
     function searchBar(event) {
         setSearch(event.target.value)
     }
-    const filteredHouses = posts.filter(post => post.house.address.toLowerCase().includes(search))
+    const filteredHouses = houses.filter(house=> house.address.toLowerCase().includes(search))
 
     return (
         <main>
@@ -18,8 +19,8 @@ function PostPage({posts}) {
             <SearchBar
                 searchBar={searchBar}
                 />
-            <PostList
-                posts={filteredHouses}
+            <HouseList
+                houses={filteredHouses}
                 />
         </main>
     );

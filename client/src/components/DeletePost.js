@@ -1,8 +1,8 @@
 import React from "react";
 
-function DeleteButton({id}) {
+function DeletePost({id}) {
 
-    function deleteHouses () {
+    function deletePost () {
         fetch("/posts/" + id, {
             method: "DELETE",
         })
@@ -13,8 +13,7 @@ function DeleteButton({id}) {
         })
     }
 
-
-    return <button onClick={deleteHouses}>Delete this home</button>;
+    return <button onClick={deletePost}>Delete this home</button>;
 }
 
-export default DeleteButton;
+export default DeletePost;

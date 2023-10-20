@@ -27,7 +27,9 @@ function App() {
   useEffect(() => {
     fetch("/houses")
     .then(res => res.json())
-    .then(data => setHouses(data))
+    .then(data => {
+      setHouses(data)
+    })
   }, [])
 
   function onAddPost(newPost) {
@@ -53,7 +55,7 @@ function App() {
             </Route> 
             <Route exact path="/posts">
               <PostPage
-                posts={posts}
+                houses={houses}
               />  
             </Route>
             <Route exact path="/posts/new">
