@@ -1,8 +1,8 @@
 import React, {useState} from "react";
-import DeletePost from "./DeletePost";
+import DeleteButton from "./DeleteHouse";
 import {BsSuitHeart, BsSuitHeartFill} from "react-icons/bs";
 
-function PostCard({id, address, price, house_img, num_of_baths, num_of_beds, description, square_feet, user, onClickHeartAddToCollection, deleteHouses}) {
+function HouseCard({id, address, price, house_img, num_of_baths, num_of_beds, description, square_feet, user, onClickHeartAddToCollection, deleteHouses}) {
     const [favorite, setIsFavorite] = useState(true);
 
     function handleClick() {
@@ -35,11 +35,11 @@ function PostCard({id, address, price, house_img, num_of_baths, num_of_beds, des
             <h5>Lister: {user}</h5>
             <span className="favorite">{favoriteHouse}</span>
             <div className="deleteBtn">
-            <DeletePost deletePost={deleteHouses} id={id}/>
+            <DeleteButton deleteHouses={deleteHouses} id={id}/>
             </div>
             </div>
         </div>
     </>)
 }
 
-export default PostCard;
+export default HouseCard;

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import PostList from "./PostList";
+import HouseList from "./HouseList";
 
-function PostForm({posts, onAddPost}) {
+function PostForm({posts, houses, onAddPost}) {
     const [address, setAddress] = useState('')
     const [description, setDescription] = useState('')
     const [num_of_beds, setNumOfBeds] = useState('')
@@ -26,6 +27,7 @@ function PostForm({posts, onAddPost}) {
             square_feet: square_feet,
             house_img: house_img,
         }
+        
         console.log(newHouse)
         // const newPost = {
         //     price: price,
@@ -59,7 +61,7 @@ function PostForm({posts, onAddPost}) {
 
     return (<>
         <Header/>
-            Post Form
+            Create Listing
         <form className="new-post" onSubmit={handleSubmit}>
         <input
             placeholder="address..."
@@ -133,8 +135,8 @@ function PostForm({posts, onAddPost}) {
         /> */}
         <button type="submit">Add Post</button>
         </form>
-        <PostList
-            posts={posts}
+        <HouseList
+            houses={houses}
         />
     </>)
 }
