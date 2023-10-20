@@ -23,8 +23,11 @@
 .main-button:visited{
     color:black;
     padding-left: 15px;
+    text-decoration: none;
 }
-
+.main-button{
+    text-decoration: none
+}
 
 
 .main-button:hover{
