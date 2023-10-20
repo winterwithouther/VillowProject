@@ -10,7 +10,7 @@ from flask_restful import Resource
 # Local imports
 from config import app, db, api
 # Add your model imports
-from models import House, User, Post, Favorite
+from models import House, User, Post
 
 # Set up:
 # generate a secrete key `python -c 'import os; print(os.urandom(16))'`
