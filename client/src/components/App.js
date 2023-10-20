@@ -14,6 +14,7 @@ import Favorites from './Favorites';
 function App() {
   const [posts, setPosts] = useState([])
   const [user, setUser] = useState(null)
+  const [favorites, setFavorites] = useState([])
 
   useEffect(() => {
     fetch("/posts")
